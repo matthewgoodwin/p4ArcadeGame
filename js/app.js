@@ -33,7 +33,7 @@ Enemy.prototype.render = function() {
 //-->below is my player class with update,render and handle methods as protototypes...
 var Player = function(playerX, playerY, playerSpeed){
     this.x= playerX;
-    this.y=playerY;
+    this.y= playerY;
     this.speed= playerSpeed;
     this.sprite='images/char-boy.png';
 };
@@ -48,8 +48,8 @@ Player.prototype.handleInput= function(allowedKeys){
         break;
 
         case "down":
-       // if(this.y<500){ // if "Y" is less than 500px, then add 80px(which sends the charater downwards)
-        this.y= this.y + 80; //}; 
+        if(this.y<350){ // if "Y" is less than 500px, then add 80px(which sends the charater downwards)
+        this.y= this.y + 80; }; 
         break;
 
         case "left":
@@ -59,11 +59,42 @@ Player.prototype.handleInput= function(allowedKeys){
         break;
 
         case "right":
-        this.x+= 100;
+        if(this.x<400){
+        this.x+= 100; };
         break;
     };
 };
 
+//Below is the collision detection and reset functions that do NOT function
+Player.prototype.collisionCheck= function(Enemy){
+    this.height= 150;
+    this.width=150;
+    var EnemyHeight= 150;
+    var EnemyWidth= 150;
+    if(this.x<Enemy.x+EnemyWidth &&
+        this.x+this.width>Enemy.x &&
+        this.y< Enemy.y+ EnemyHeight &&
+        this.y+this.height>Enemy.y){
+        //collision detected
+    alert("collision");
+    };
+};
+
+/*Player.prototype.collisionCheck= function(){
+};
+Player.prototype.goal=function(){
+    if(this.y<30){
+        this.resetGame();
+    };
+};
+Player.prototype.resetGame= function(){
+    {
+    this.x= 200;
+    this.y= 390;
+    this.speed= 100;
+    this.sprite='images/char-boy.png';};
+};
+*/
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -81,6 +112,7 @@ var allEnemies= [hater1, hater2, hater3, hater4, hater5];
 //---=>below is the instance of the player object
 var player = new Player(200,390,100);
 
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -88,12 +120,12 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
+player.collisionCheck();
 /*document.addEventListener('keyup', playerMove());
 var playerMove= function(){
     37: 'left';
