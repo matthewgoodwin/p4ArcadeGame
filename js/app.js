@@ -67,21 +67,35 @@ Player.prototype.handleInput= function(allowedKeys){
 
 //Below is the collision detection and reset functions that do NOT function
 Player.prototype.collisionCheck= function(Enemy){
-    this.height= 150;
-    this.width=150;
-    var EnemyHeight= 150;
-    var EnemyWidth= 150;
-    if(this.x<Enemy.x+EnemyWidth &&
+    Enemy.height= 50;
+    Enemy.width= 50;
+    
+    this.height= 50;
+    this.width=50;
+
+    //var EnemyWidth= 50;
+    //var EnemyHeight= 50;
+    console.log(Enemy);
+    console.log(this);
+
+    if(this.x<Enemy.x+Enemy.width &&
         this.x+this.width>Enemy.x &&
-        this.y< Enemy.y+ EnemyHeight &&
+        this.y< Enemy.y+ Enemy.height &&
         this.y+this.height>Enemy.y){
         //collision detected
     alert("collision");
+
     };
 };
 
+//Player.prototype.collisionCheck= function(enemy){
+  //  console.log(enemy);
+//};
+
 /*Player.prototype.collisionCheck= function(){
 };
+
+//this is designed to reset the game when the player reaches the goal.. not working..
 Player.prototype.goal=function(){
     if(this.y<30){
         this.resetGame();
@@ -125,7 +139,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-player.collisionCheck();
+player.collisionCheck(hater1);
 /*document.addEventListener('keyup', playerMove());
 var playerMove= function(){
     37: 'left';
