@@ -37,7 +37,7 @@ var Player = function(playerX, playerY, playerSpeed){
     this.speed= playerSpeed;
     this.sprite='images/char-boy.png';
 };
-Player.prototype.update= function(dt){this.x= this.x; this.y= this.y;};
+Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; player.collisionCheck(hater1);};
 Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
 Player.prototype.handleInput= function(allowedKeys){
     switch(allowedKeys){
@@ -67,21 +67,22 @@ Player.prototype.handleInput= function(allowedKeys){
 
 //Below is the collision detection and reset functions that do NOT function
 Player.prototype.collisionCheck= function(Enemy){
-    Enemy.height= 50;
-    Enemy.width= 50;
+    var e= Enemy;
+    e.height= 50;
+    e.width= 60;
     
-    this.height= 50;
-    this.width=50;
+    this.height= 35;
+    this.width=60;
 
     //var EnemyWidth= 50;
     //var EnemyHeight= 50;
-    console.log(Enemy);
+    console.log(e);
     console.log(this);
 
-    if(this.x<Enemy.x+Enemy.width &&
-        this.x+this.width>Enemy.x &&
-        this.y< Enemy.y+ Enemy.height &&
-        this.y+this.height>Enemy.y){
+    if(this.x<e.x+e.width &&
+        this.x+this.width>e.x &&
+        this.y< e.y+ e.height &&
+        this.y+this.height>e.y){
         //collision detected
     alert("collision");
 
@@ -139,7 +140,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-player.collisionCheck(hater1);
+
 /*document.addEventListener('keyup', playerMove());
 var playerMove= function(){
     37: 'left';
