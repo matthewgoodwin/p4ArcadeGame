@@ -37,7 +37,7 @@ var Player = function(playerX, playerY, playerSpeed){
     this.speed= playerSpeed;
     this.sprite='images/char-boy.png';
 };
-Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; player.collisionCheck(hater1);};
+Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; player.collisionCheck(allEnemies);};
 Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
 Player.prototype.handleInput= function(allowedKeys){
     switch(allowedKeys){
@@ -66,28 +66,29 @@ Player.prototype.handleInput= function(allowedKeys){
 };
 
 //Below is the collision detection and reset functions that do NOT function
-Player.prototype.collisionCheck= function(Enemy){
-    var e= Enemy;
-    e.height= 50;
-    e.width= 60;
+Player.prototype.collisionCheck= function(enemy){
+    var e= enemy;
+    e.height= 40;
+    e.width= 55;
     
     this.height= 35;
-    this.width=60;
+    this.width=55;
 
     //var EnemyWidth= 50;
     //var EnemyHeight= 50;
     console.log(e);
     console.log(this);
-
-    if(this.x<e.x+e.width &&
-        this.x+this.width>e.x &&
-        this.y< e.y+ e.height &&
-        this.y+this.height>e.y){
+for(var i in e){
+    if(this.x<e[i].x+e[i].width &&
+        this.x+this.width>e[i].x &&
+        this.y< e[i].y+ e[i].height &&
+        this.y+this.height>e[i].y){
         //collision detected
     alert("collision");
 
-    };
-};
+    };//ends if statement
+};//ends for loop
+};//ends prototype function
 
 //Player.prototype.collisionCheck= function(enemy){
   //  console.log(enemy);
