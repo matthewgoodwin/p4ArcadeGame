@@ -70,47 +70,33 @@ Player.prototype.collisionCheck= function(enemy){
     var e= enemy;
     e.height= 40;
     e.width= 55;
-    
+   
     this.height= 35;
     this.width=55;
 
-    //var EnemyWidth= 50;
-    //var EnemyHeight= 50;
-    console.log(e);
-    console.log(this);
-for(var i in e){
+    //console.log(e);
+    //console.log(this);
+//for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the number of enemies; loops through a number of times
+
+//var eLong = e.length; //expresses enemny array lenght as a varaiable.(part1)
+//for(i=0; i<eLong; i++){}; //then uses variable elong to loop throught the enemny array(part2)
+
+for(var i in e){ //for in loop; loops through allEnemies; loops through properties of an object
+    console.log(e[i]);
+    
     if(this.x<e[i].x+e[i].width &&
         this.x+this.width>e[i].x &&
         this.y< e[i].y+ e[i].height &&
         this.y+this.height>e[i].y){
         //collision detected
     alert("collision");
+    //run a console.log of e[i] to ensure that individual array objects are being targeted
 
-    };//ends if statement
-};//ends for loop
+        };//ends if statement 
+    };//ends for loop
 };//ends prototype function
 
-//Player.prototype.collisionCheck= function(enemy){
-  //  console.log(enemy);
-//};
 
-/*Player.prototype.collisionCheck= function(){
-};
-
-//this is designed to reset the game when the player reaches the goal.. not working..
-Player.prototype.goal=function(){
-    if(this.y<30){
-        this.resetGame();
-    };
-};
-Player.prototype.resetGame= function(){
-    {
-    this.x= 200;
-    this.y= 390;
-    this.speed= 100;
-    this.sprite='images/char-boy.png';};
-};
-*/
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
