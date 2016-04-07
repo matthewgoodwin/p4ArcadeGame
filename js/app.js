@@ -40,7 +40,7 @@ var Player = function(playerX, playerY, playerSpeed){
     this.sprite='images/char-boy.png';
 };
 Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; 
-    player.collisionCheck(allEnemies); 
+    this.collisionCheck(allEnemies); //same as player.collisionCheck(all..);
     if(this.y<15){
         player.resetGame();
     };
@@ -49,9 +49,9 @@ Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), th
 Player.prototype.resetGame= function(){this.x= 200; this.y= 390; this.speed= 100;};
 /*Player.prototype.goal=function(){
     if(this.y<20){
-        player.resetGame();
+        this.resetGame(); // same as player.resetGame();
     };
-};*/
+};//end player.prot.goal*/
 Player.prototype.handleInput= function(allowedKeys){
     switch(allowedKeys){
         case "up":
@@ -95,7 +95,7 @@ Player.prototype.collisionCheck= function(enemy){
 //for(i=0; i<eLong; i++){}; //then uses variable elong to loop throught the enemny array(part2)
 
 for(var i in e){ //for in loop; loops through allEnemies; loops through properties of an object
-    console.log(e[i]);
+    //console.log(e[i]);
 
 
     if(this.x<e[i].x+ e[i].width  &&
@@ -104,7 +104,7 @@ for(var i in e){ //for in loop; loops through allEnemies; loops through properti
         this.y+this.height>e[i].y){
         //collision detected
     alert("you lose");
-    player.resetGame();
+    this.resetGame();// player.resetGame();
     //run a console.log of e[i] to ensure that individual array objects are being targeted
         };//ends if statement 
     };//ends for loop
