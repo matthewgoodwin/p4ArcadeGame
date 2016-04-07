@@ -4,6 +4,8 @@ var Enemy = function(haterX, haterY,haterSpeed) {
     // we've provided one for you to get started
     this.x= haterX;
     this.y= haterY;
+    this.width=55;
+    this.length=40;
     this.speed= haterSpeed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -39,6 +41,12 @@ var Player = function(playerX, playerY, playerSpeed){
 };
 Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; player.collisionCheck(allEnemies);};
 Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
+Player.prototype.resetGame= function(){this.x= 200; this.y= 390; this.speed= 100;};
+Player.prototype.goal=function(){
+    if(this.y<50){
+        player.resetGame();
+    };
+};
 Player.prototype.handleInput= function(allowedKeys){
     switch(allowedKeys){
         case "up":
@@ -68,8 +76,8 @@ Player.prototype.handleInput= function(allowedKeys){
 //Below is the collision detection and reset functions that do NOT function
 Player.prototype.collisionCheck= function(enemy){
     var e= enemy;
-    e.height= 40;
-    e.width= 55;
+    //var eHeight= 40;
+    //var eWidth= 55;
    
     this.height= 35;
     this.width=55;
@@ -83,15 +91,16 @@ Player.prototype.collisionCheck= function(enemy){
 
 for(var i in e){ //for in loop; loops through allEnemies; loops through properties of an object
     console.log(e[i]);
-    
-    if(this.x<e[i].x+e[i].width &&
+
+
+    if(this.x<e[i].x+ e[i].width  &&
         this.x+this.width>e[i].x &&
-        this.y< e[i].y+ e[i].height &&
+        this.y< e[i].y+ e[i].length &&
         this.y+this.height>e[i].y){
         //collision detected
-    alert("collision");
+    alert("you lose");
+    player.resetGame();
     //run a console.log of e[i] to ensure that individual array objects are being targeted
-
         };//ends if statement 
     };//ends for loop
 };//ends prototype function
@@ -127,7 +136,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
+player.goal();
 /*document.addEventListener('keyup', playerMove());
 var playerMove= function(){
     37: 'left';
