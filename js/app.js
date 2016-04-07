@@ -39,14 +39,19 @@ var Player = function(playerX, playerY, playerSpeed){
     this.speed= playerSpeed;
     this.sprite='images/char-boy.png';
 };
-Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; player.collisionCheck(allEnemies);};
-Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
-Player.prototype.resetGame= function(){this.x= 200; this.y= 390; this.speed= 100;};
-Player.prototype.goal=function(){
-    if(this.y<50){
+Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; 
+    player.collisionCheck(allEnemies); 
+    if(this.y<15){
         player.resetGame();
     };
 };
+Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
+Player.prototype.resetGame= function(){this.x= 200; this.y= 390; this.speed= 100;};
+/*Player.prototype.goal=function(){
+    if(this.y<20){
+        player.resetGame();
+    };
+};*/
 Player.prototype.handleInput= function(allowedKeys){
     switch(allowedKeys){
         case "up":
