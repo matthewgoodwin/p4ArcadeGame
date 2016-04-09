@@ -41,13 +41,15 @@ var Player = function(playerX, playerY, playerSpeed){
 };
 Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; 
     this.collisionCheck(allEnemies); //same as player.collisionCheck(all..);
-    if(this.y<15){
+    //the code below works well, but I am wondering why it does not work on line 52-56
+    /*if(this.y<15){
         this.resetGame();
-    };
+    };*/
 };
 Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
 Player.prototype.resetGame= function(){this.x= 200; this.y= 390; this.speed= 100;};
-/*Player.prototype.goal=function(){
+//below is the code in quesiton: why does this not wwork, when line 45-47 is the same code
+Player.prototype.goal=function(){
     if(this.y<20){
         this.resetGame(); // same as player.resetGame();
     };
@@ -141,7 +143,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-/*player.goal();*/
+player.goal();
 /*document.addEventListener('keyup', playerMove());
 var playerMove= function(){
     37: 'left';
