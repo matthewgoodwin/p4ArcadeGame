@@ -42,7 +42,7 @@ var Player = function(playerX, playerY, playerSpeed){
 Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; 
     this.collisionCheck(allEnemies); //same as player.collisionCheck(all..);
     if(this.y<15){
-        player.resetGame();
+        this.resetGame();
     };
 };
 Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
@@ -141,7 +141,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-player.goal();
+/*player.goal();*/
 /*document.addEventListener('keyup', playerMove());
 var playerMove= function(){
     37: 'left';
