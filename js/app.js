@@ -20,7 +20,9 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     //--->multiply movements below
     this.x+= this.speed* dt;
-    if(this.x>520){this.x= -50};
+    if(this.x>520){
+        this.x= -50;
+    };
 
 };
 
@@ -39,19 +41,32 @@ var Player = function(playerX, playerY, playerSpeed){
     this.speed= playerSpeed;
     this.sprite='images/char-boy.png';
 };
+
 Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; 
     this.collisionCheck(allEnemies); //same as player.collisionCheck(all..);
-    if(this.y<15){
+    this.goal();
+    /*if(this.y<15){
         this.resetGame();
-    };
+    };*/
 };
-Player.prototype.render= function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
-Player.prototype.resetGame= function(){this.x= 200; this.y= 390; this.speed= 100;};
-/*Player.prototype.goal=function(){
+
+Player.prototype.render= function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.resetGame= function(){
+    this.x= 200; this.y= 390; this.speed= 100;
+};
+
+Player.prototype.goal=function(){
     if(this.y<20){
-        this.resetGame(); // same as player.resetGame();
+        setTimeout(function(){
+            player.resetGame();
+        }, 200);
+        //this.resetGame(); // same as player.resetGame();
     };
 };//end player.prot.goal*/
+
 Player.prototype.handleInput= function(allowedKeys){
     switch(allowedKeys){
         case "up":
@@ -81,20 +96,16 @@ Player.prototype.handleInput= function(allowedKeys){
 //Below is the collision detection and reset functions that do NOT function
 Player.prototype.collisionCheck= function(enemy){
     var e= enemy;
-    //var eHeight= 40;
-    //var eWidth= 55;
    
     this.height= 35;
     this.width=55;
 
-    //console.log(e);
-    //console.log(this);
-//for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the number of enemies; loops through a number of times
+for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the number of enemies; loops through a number of times
 
 //var eLong = e.length; //expresses enemny array lenght as a varaiable.(part1)
 //for(i=0; i<eLong; i++){}; //then uses variable elong to loop throught the enemny array(part2)
 
-for(var i in e){ //for in loop; loops through allEnemies; loops through properties of an object
+//for(var i in e){ //for in loop; loops through allEnemies; loops through properties of an object
     //console.log(e[i]);
 
 
@@ -103,8 +114,10 @@ for(var i in e){ //for in loop; loops through allEnemies; loops through properti
         this.y< e[i].y+ e[i].length &&
         this.y+this.height>e[i].y){
         //collision detected
-    alert("you lose");
-    this.resetGame();// player.resetGame();
+    setTimeout(function(){
+        player.resetGame(); 
+    }, 200);// calls a function that delays he player reset game function 
+    //this.resetGame();// player.resetGame();
     //run a console.log of e[i] to ensure that individual array objects are being targeted
         };//ends if statement 
     };//ends for loop
@@ -118,11 +131,11 @@ for(var i in e){ //for in loop; loops through allEnemies; loops through properti
 var hater1= new Enemy(-100,220,20); //enemy y-axis diff= 80px
 var hater2= new Enemy(-100,220,150);
 var hater3= new Enemy(-100,140,70);
-var hater4= new Enemy(-100,60,100);
+var hater4= new Enemy(-100,140,140);
 var hater5= new Enemy(-100,60,35);
+var hater6= new Enemy(-100,60,100);
 
-
-var allEnemies= [hater1, hater2, hater3, hater4, hater5];
+var allEnemies= [hater1, hater2, hater3, hater4, hater5,hater6];
 
 // Place the player object in a variable called player
 //---=>below is the instance of the player object
@@ -141,11 +154,4 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-/*player.goal();*/
-/*document.addEventListener('keyup', playerMove());
-var playerMove= function(){
-    37: 'left';
-    38: 'up';
-    39: 'right';
-    40: 'down';
-};*/
+
