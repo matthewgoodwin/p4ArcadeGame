@@ -2,11 +2,11 @@
 var Enemy = function(haterX, haterY,haterSpeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x= haterX;
-    this.y= haterY;
-    this.width=55;
-    this.length=40;
-    this.speed= haterSpeed;
+    this.x = haterX;
+    this.y = haterY;
+    this.width = 55;
+    this.length = 40;
+    this.speed = haterSpeed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -19,10 +19,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     //--->multiply movements below
-    this.x+= this.speed* dt;
+    this.x+= this.speed * dt;
     if(this.x>520){
         this.x= -50;
-    };
+    }
 
 };
 
@@ -36,13 +36,15 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 //-->below is my player class with update,render and handle methods as protototypes...
 var Player = function(playerX, playerY, playerSpeed){
-    this.x= playerX;
-    this.y= playerY;
-    this.speed= playerSpeed;
-    this.sprite='images/char-boy.png';
+    this.x = playerX;
+    this.y = playerY;
+    this.speed = playerSpeed;
+    this.sprite ='images/char-boy.png';
 };
 
-Player.prototype.update= function(dt){this.x= this.x; this.y= this.y; 
+Player.prototype.update= function(dt){
+    this.x= this.x; 
+    this.y= this.y; 
     this.collisionCheck(allEnemies); //same as player.collisionCheck(all..);
     this.goal();
     /*if(this.y<15){
@@ -55,13 +57,17 @@ Player.prototype.render= function(){
 };
 
 Player.prototype.resetGame= function(){
-    this.x= 200; this.y= 390; this.speed= 100;
+    this.x= 200; 
+    this.y= 390; 
+    this.speed= 100;
 };
 
 Player.prototype.goal=function(){
-    if(this.y<20){
+    // 'this' cant b accessed inside the setTimeout func, bc it does not have access to the Player scope. So i must set 'this' to 'hero' OUTSIDE the function call
+    var hero = this;
+    if(hero.y < 20){
         setTimeout(function(){
-            player.resetGame();
+            hero.resetGame();
         }, 200);
         //this.resetGame(); // same as player.resetGame();
     };
@@ -96,9 +102,11 @@ Player.prototype.handleInput= function(allowedKeys){
 //Below is the collision detection and reset functions that do NOT function
 Player.prototype.collisionCheck= function(enemy){
     var e= enemy;
-   
-    this.height= 35;
-    this.width=55;
+//set 'this' to 'hero' so setTImeout can access it. In this case I can avoid using player.resetGame in setTimeout; setTime has not access to this
+    var hero = this;
+
+    hero.height= 35;
+    hero.width=55;
 
 for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the number of enemies; loops through a number of times
 
@@ -115,7 +123,7 @@ for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the nu
         this.y+this.height>e[i].y){
         //collision detected
     setTimeout(function(){
-        player.resetGame(); 
+        hero.resetGame(); //'hero'= 'this' line 105
     }, 200);// calls a function that delays he player reset game function 
     //this.resetGame();// player.resetGame();
     //run a console.log of e[i] to ensure that individual array objects are being targeted
@@ -135,7 +143,7 @@ var hater4= new Enemy(-100,140,140);
 var hater5= new Enemy(-100,60,35);
 var hater6= new Enemy(-100,60,100);
 
-var allEnemies= [hater1, hater2, hater3, hater4, hater5,hater6];
+var allEnemies= [hater1, hater2, hater3, hater4, hater5, hater6];
 
 // Place the player object in a variable called player
 //---=>below is the instance of the player object
