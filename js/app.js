@@ -40,6 +40,7 @@ var Player = function(playerX, playerY, playerSpeed){
     this.y = playerY;
     this.speed = playerSpeed;
     this.sprite ='images/char-boy.png';
+    //add width and height values so they are not hard coded in the collision function
 };
 
 Player.prototype.update= function(dt){
@@ -56,10 +57,14 @@ Player.prototype.render= function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.resetGame= function(){
-    this.x= 200; 
-    this.y= 390; 
-    this.speed= 100;
+Player.prototype.resetGame= function(newX, newY, newSpeed){
+    //this.x= 200; 
+    //this.y= 390; 
+    //this.speed= 100;
+    //eliminate magic numbers, this is done in case I change the values of x and y
+    this.x = newX;
+    this.y = newY;
+    this.speed= newSpeed;
 };
 
 Player.prototype.goal=function(){
@@ -67,7 +72,7 @@ Player.prototype.goal=function(){
     var hero = this;
     if(hero.y < 20){
         setTimeout(function(){
-            hero.resetGame();
+            hero.resetGame(200, 390, 100);
         }, 200);
         //this.resetGame(); // same as player.resetGame();
     };
@@ -123,7 +128,7 @@ for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the nu
         this.y+this.height>e[i].y){
         //collision detected
     setTimeout(function(){
-        hero.resetGame(); //'hero'= 'this' line 105
+        hero.resetGame(200, 390, 100); //'hero'= 'this' line 105
     }, 200);// calls a function that delays he player reset game function 
     //this.resetGame();// player.resetGame();
     //run a console.log of e[i] to ensure that individual array objects are being targeted
