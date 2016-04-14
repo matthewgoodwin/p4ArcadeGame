@@ -2,6 +2,7 @@
 var Enemy = function(haterX, haterY,haterSpeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    "use:strict";
     this.x = haterX;
     this.y = haterY;
     this.width = 55;
@@ -19,6 +20,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     //--->multiply movements below
+    "use: strict";
     this.x+= this.speed * dt;
     if(this.x>520){
         this.x= -50;
@@ -36,6 +38,7 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 //-->below is my player class with update,render and handle methods as protototypes...
 var Player = function(playerX, playerY, playerSpeed){
+    "use: strict";
     this.x = playerX;
     this.y = playerY;
     this.speed = playerSpeed;
@@ -44,16 +47,18 @@ var Player = function(playerX, playerY, playerSpeed){
 };
 
 Player.prototype.update= function(dt){
+    "use: strict";
     this.x= this.x; 
     this.y= this.y; 
     this.collisionCheck(allEnemies); //same as player.collisionCheck(all..);
-    this.goal();
+    this.goal();//must be called here because the player x and y are updated here
     /*if(this.y<15){
         this.resetGame();
     };*/
 };
 
 Player.prototype.render= function(){
+    "use: strict";
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -62,6 +67,7 @@ Player.prototype.resetGame= function(newX, newY, newSpeed){
     //this.y= 390; 
     //this.speed= 100;
     //eliminate magic numbers, this is done in case I change the values of x and y
+    "use: strict";
     this.x = newX;
     this.y = newY;
     this.speed= newSpeed;
@@ -69,6 +75,7 @@ Player.prototype.resetGame= function(newX, newY, newSpeed){
 
 Player.prototype.goal=function(){
     // 'this' cant b accessed inside the setTimeout func, bc it does not have access to the Player scope. So i must set 'this' to 'hero' OUTSIDE the function call
+    "use: strict";
     var hero = this;
     if(hero.y < 20){
         setTimeout(function(){
@@ -79,6 +86,7 @@ Player.prototype.goal=function(){
 };//end player.prot.goal*/
 
 Player.prototype.handleInput= function(allowedKeys){
+    "use: strict";
     switch(allowedKeys){
         case "up":
         if(this.y>0){
@@ -106,6 +114,7 @@ Player.prototype.handleInput= function(allowedKeys){
 
 //Below is the collision detection and reset functions that do NOT function
 Player.prototype.collisionCheck= function(enemy){
+    "use: strict";
     var e= enemy;
 //set 'this' to 'hero' so setTImeout can access it. In this case I can avoid using player.resetGame in setTimeout; setTime has not access to this
     var hero = this;
@@ -121,13 +130,14 @@ for (i=0; i < e.length; i++){ // standard loop; as long as i is less than the nu
 //for(var i in e){ //for in loop; loops through allEnemies; loops through properties of an object
     //console.log(e[i]);
 
-
+    //'this' can be replaced with 'hero' below
     if(this.x<e[i].x+ e[i].width  &&
         this.x+this.width>e[i].x &&
         this.y< e[i].y+ e[i].length &&
         this.y+this.height>e[i].y){
         //collision detected
     setTimeout(function(){
+        "use: strict";
         hero.resetGame(200, 390, 100); //'hero'= 'this' line 105
     }, 200);// calls a function that delays he player reset game function 
     //this.resetGame();// player.resetGame();
